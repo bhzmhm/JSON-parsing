@@ -8,17 +8,6 @@ using namespace std;
          } else
              cout << arr[i]<< ' ';
 }
-int max(int arr[],int len){
-    int maxnum;
-    for (int i = len; i >= 0 ; i--) {
-        for (int j = 0; j < i; ++j) {
-            if (arr[i] < arr[j]){
-                maxnum = arr[j];
-            }
-        }
-    }
-    return maxnum;
- }
 int main() {
 //    string input[24] = {"[","[","]","[","[","]","[","[","[","]","]","]","[","]","]","[","[","[","]","[","]","]","]","]"};
     string input[18] = {"[", "[", "]", "[", "[", "]", "[", "]", "[", "[", "]", "]", "]", "[", "]", "[", "]", "]"};
@@ -39,6 +28,7 @@ int main() {
     int par[node_count];
     int alloc[node_count] = {0};
     int val = -1;
+    int max_depth=0;
     for (int i = 0; i < node_count ; i++){
         par[i] = val;
     }
@@ -52,6 +42,9 @@ int main() {
             depth[i+1] = depth[i]+1;
             index[j] = node[i];
             new_depth[j] = depth[i];
+            if (max_depth < new_depth[j]){
+                max_depth = new_depth[j];
+            }
             j++;
         }
         if (input[i] == "]"){
@@ -76,8 +69,6 @@ int main() {
     //section three
     cout << "\n\nsection 3 : ' Sort by depth '";
     int bfs_counter = 0;
-    int max_depth;
-    max_depth = max(new_depth, node_count);
     j = 0;
     while (j <= max_depth){
         for (i = 0; i < node_count; i++) {
